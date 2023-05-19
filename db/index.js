@@ -69,12 +69,14 @@ const addTrickToPuppy = async (puppyId, trickId) => {
     console.log(ex.error)
   }
 };
+
+// LEFT JOIN RIGHT JOIN AND INNER JOIN
 const getOwnersAndPuppies = async () => {
   try{
     const { rows } = await client.query(`
     SELECT users.name AS "Owner" , puppies.name AS "Petname"
     FROM puppies
-    INNER JOIN users ON puppies."ownerId" = users.Id
+    RIGHT JOIN users ON puppies."ownerId" = users.Id
     
     `);
     return rows;
