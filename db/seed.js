@@ -4,7 +4,8 @@ const {
 	createPuppy,
 	createTrick,
 	addTrickToPuppy,
-	getOwnersAndPuppies
+	getOwnersAndPuppies,
+    updateUser
 		 } = require('./index');
 
 const { users, puppies, tricks } = require('./seed_data');
@@ -14,8 +15,8 @@ const { users, puppies, tricks } = require('./seed_data');
 const dropTables = async () => {
     try{
         await client.query(`
-				DROP TABLE IF EXISTS puppy_tricks;
-				DROP TABLE IF EXISTS tricks;
+		DROP TABLE IF EXISTS puppy_tricks;
+		DROP TABLE IF EXISTS tricks;
         DROP TABLE IF EXISTS puppies;
         DROP TABLE IF EXISTS users;
         `)
@@ -34,7 +35,7 @@ const createTables = async () => {
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) ,
             age INTEGER,
-						email VARCHAR(255)
+			email VARCHAR(255)
         );
         `)
 
@@ -127,7 +128,54 @@ const buildDB = async ()  => {
 				await addTrickToPuppy(3, 4);
 
 				const ownersAndTheirPuppies = await getOwnersAndPuppies();
-				console.log(ownersAndTheirPuppies);
+				//console.log(ownersAndTheirPuppies);
+                const udatedUser = await updateUser(8,{name: 'Petra', age: 24, email: 'petra@email.com'} )
+                console.log(udatedUser)
+                const { rows }= await client.query(`
+                SELECT * FROM users;
+                `)
+                console.log(rows);
+
+    
+ //WHERE CLAUSE: finds records based on specified "WHERE" conditions
+ // https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-where/;
+
+    // const {rows: [userFelix]} = await client.query(`
+    //     SELECT * FROM users
+    //     WHERE "name"='Felix';
+    // `)
+    // console.log(userFelix);
+    // const {rows} = await client.query(`
+    //     SELECT * FROM users
+    //     WHERE "age"= 33;
+    // `)
+    // console.log(rows);
+
+    ////OPERATORS USING AND, OR and NOT//////////
+
+    ///USE: AND
+    // const {rows:[Sam]} = await client.query(`
+    //     SELECT * FROM users
+    //     WHERE "age"= 33
+    //     AND "name" = 'Sam';
+    // `)
+    // console.log(Sam);
+
+    ///USE: OR
+    // const {rows:[singleUser]} = await client.query(`
+    //     SELECT * FROM users
+    //     WHERE "age"= 22
+    //     OR "name" = 'Felix';
+    // `)
+    // console.log(singleUser);
+    ///USE: NOT
+    // const {rows} = await client.query(`
+    //     SELECT * FROM users
+    //     WHERE NOT "name"='Felix';
+    // `)
+    //  console.log(rows)
+
+
     }catch (ex){
         console.log('ERROR BUILDING THIS DATABASE!!!!!');
         console.log(ex);

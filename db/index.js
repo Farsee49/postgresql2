@@ -15,6 +15,7 @@ const createUser = async (user) => {
         const {rows: [user]} = await client.query(`
         INSERT INTO users (name, age, email)
         VALUES ($1, $2, $3)
+      
         RETURNING *;
         ` ,[name, age, email])
         
@@ -26,6 +27,7 @@ const createUser = async (user) => {
     }
 
 };
+
 const createPuppy = async (puppy) => {
     const { name, email, age, ownerId } = puppy;
     try{
@@ -43,6 +45,40 @@ const createPuppy = async (puppy) => {
     }
 
 };
+
+const updateUser = async (id, fields = {}) =>{
+
+  /*
+  Update SQL syntax
+  UPDATE users
+  SET "name" = 'newname' "age"= <new-age>
+  */
+  try{
+    const setString = Object.keys(fields).map(
+      (key, index) => `"${ key }"=$${ index + 1 }`
+    ).join(', ');
+
+    if (setString.length === 0) {
+      return;
+    }
+    const {rows: [user]} = await client.query(`
+    UPDATE users
+    SET ${ setString }
+    WHERE id=${id}
+    RETURNING *;
+  `, Object.values(fields));
+
+  return user;
+  
+   
+    
+  }catch(ex){
+    console.log('ERROR UPDATING USERS !!!');
+    console.log(ex)
+  }
+
+}
+
 const createTrick = async (trickTitle) => {
     try{
         await client.query(`
@@ -89,6 +125,15 @@ const getOwnersAndPuppies = async () => {
   }
 };
 
+const getAllPuppies = async () => {
+  try{
+
+  }catch(ex){
+    console.log('ERROR FETCHING ALL PUPPIES!!!');
+    console.log(ex.error)
+  }
+}
+
 
 
 module.exports = {
@@ -97,5 +142,6 @@ module.exports = {
     createPuppy,
     createTrick,
     addTrickToPuppy,
-    getOwnersAndPuppies
+    getOwnersAndPuppies,
+    updateUser
 };

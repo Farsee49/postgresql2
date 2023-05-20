@@ -9,7 +9,7 @@ const users =[
     },
     {
         name: 'Sam',
-        age: 16,
+        age: 33,
         email: 'sam@email.com'
     },
     {
