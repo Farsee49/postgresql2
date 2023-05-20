@@ -127,12 +127,29 @@ const getOwnersAndPuppies = async () => {
 
 const getAllPuppies = async () => {
   try{
+   const { rows } = await client.query(`
+   SELECT * FROM puppies;
+   `)
+    return rows;
 
   }catch(ex){
     console.log('ERROR FETCHING ALL PUPPIES!!!');
     console.log(ex.error)
   }
-}
+};
+
+const getAllUsers = async () => {
+  try{
+   const { rows } = await client.query(`
+   SELECT * FROM users;
+   `)
+    return rows;
+
+  }catch(ex){
+    console.log('ERROR FETCHING ALL USERS!!!');
+    console.log(ex.error)
+  }
+};
 
 
 
@@ -143,5 +160,7 @@ module.exports = {
     createTrick,
     addTrickToPuppy,
     getOwnersAndPuppies,
-    updateUser
+    updateUser,
+    getAllPuppies,
+    getAllUsers
 };
