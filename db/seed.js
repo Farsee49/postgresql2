@@ -32,7 +32,7 @@ const createTables = async () => {
         await client.query(`
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
+            name VARCHAR(255) ,
             age INTEGER,
 						email VARCHAR(255)
         );
@@ -48,20 +48,20 @@ const createTables = async () => {
         );
         `)
 
-				await client.query(`
-				CREATE TABLE tricks (
-					id SERIAL PRIMARY KEY,
-					title VARCHAR(255)
-				);
-				`)
+		await client.query(`
+		CREATE TABLE tricks (
+			id SERIAL PRIMARY KEY,
+			title VARCHAR(255)
+		);
+		`)
 
-				await client.query(`
-				CREATE TABLE puppy_tricks (
-					id SERIAL PRIMARY KEY,
-					"puppyId" INTEGER REFERENCES puppies (id),
-					"trickId" INTEGER REFERENCES tricks (id)
-				)
-				`)
+		await client.query(`
+		CREATE TABLE puppy_tricks (
+			id SERIAL PRIMARY KEY,
+			"puppyId" INTEGER REFERENCES puppies (id),
+			"trickId" INTEGER REFERENCES tricks (id)
+		)
+		`)
 			
     }catch (ex) {
         console.log('SHIT WENT WRONG CREATING TABLES!!!!');
@@ -75,7 +75,7 @@ const createInitialUsers = async () => {
     try{
         await Promise.all(users.map(createUser));
     }catch (ex) {
-        console.log('SHIT WENT WRONG CREATING INITIAL USER!!!!');
+        console.log('ERROR CREATING INITIAL USER!!!!');
         console.log(ex.error);
     }
 
@@ -85,7 +85,7 @@ const createInitialPuppies = async () => {
     try{
         await Promise.all(puppies.map(createPuppy));
     }catch (ex) {
-        console.log('SHIT WENT WRONG CREATING INITIAL PUPPY!!!!');
+        console.log('ERROR CREATING INITIAL PUPPY!!!!');
         console.log(ex.error);
     }
 
@@ -95,7 +95,7 @@ const createInitialTricks = async () => {
     try{
         await Promise.all(tricks.map(createTrick));
     }catch (ex) {
-        console.log('SHIT WENT WRONG CREATING INITIAL TRICK!!!!');
+        console.log('ERROR CREATING INITIAL TRICK!!!!');
         console.log(ex.error);
     }
 
@@ -129,7 +129,7 @@ const buildDB = async ()  => {
 				const ownersAndTheirPuppies = await getOwnersAndPuppies();
 				console.log(ownersAndTheirPuppies);
     }catch (ex){
-        console.log('SHIT WENT WRONG BUILDING THIS DATABASE!!!!!');
+        console.log('ERROR BUILDING THIS DATABASE!!!!!');
         console.log(ex);
     }
 };

@@ -6,6 +6,9 @@ const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/
 
 const client = new Client ({ connectionString });
 
+
+////////////////////DATABASE ADAPTERS!!!!!!!/////////////////////////////////////
+
 const createUser = async (user) => {
     const { name, age, email } = user;
     try{
@@ -19,7 +22,7 @@ const createUser = async (user) => {
         return user;
     }catch (ex) {
         console.log('ERROR CREATING SINGLE USER!!!!');
-        console.log(ex.error);
+        console.log(ex);
     }
 
 };
@@ -76,7 +79,7 @@ const getOwnersAndPuppies = async () => {
     const { rows } = await client.query(`
     SELECT users.name AS "Owner" , puppies.name AS "Petname"
     FROM puppies
-    RIGHT JOIN users ON puppies."ownerId" = users.Id
+    INNER JOIN users ON puppies."ownerId" = users.Id
     
     `);
     return rows;
