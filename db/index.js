@@ -10,14 +10,14 @@ const client = new Client ({ connectionString });
 ////////////////////DATABASE ADAPTERS!!!!!!!/////////////////////////////////////
 
 const createUser = async (user) => {
-    const { name, age, email } = user;
+    const { username, age, email, password } = user;
     try{
         const {rows: [user]} = await client.query(`
-        INSERT INTO users (name, age, email)
-        VALUES ($1, $2, $3)
+        INSERT INTO users (username, age, email, password)
+        VALUES ($1, $2, $3, $4)
       
         RETURNING *;
-        ` ,[name, age, email])
+        ` ,[username, age, email,password])
         
         //console.log(user);
         return user;
@@ -51,7 +51,7 @@ const updateUser = async (id, fields = {}) =>{
   /*
   Update SQL syntax
   UPDATE users
-  SET "name" = 'newname' "age"= <new-age>
+  SET "userName" = 'newusername' "age"= <new-age>
   */
   try{
     const setString = Object.keys(fields).map(
@@ -113,7 +113,7 @@ const addTrickToPuppy = async (puppyId, trickId) => {
 const getOwnersAndPuppies = async () => {
   try{
     const { rows } = await client.query(`
-    SELECT users.name AS "Owner" , puppies.name AS "Petname"
+    SELECT users.username AS "Owner" , puppies.name AS "Petname"
     FROM puppies
     INNER JOIN users ON puppies."ownerId" = users.Id
     

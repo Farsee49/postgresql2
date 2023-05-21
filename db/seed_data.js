@@ -3,39 +3,46 @@
 
 const users =[
     {
-        name: 'Felix',
+        username: 'Felix',
         age: 09,
-        email: 'felix@email.com'
+        email: 'felix@email.com',
+        password: 'felix123'
     },
     {
-        name: 'Sam',
+        username: 'Sam',
         age: 33,
-        email: 'sam@email.com'
+        email: 'sam@email.com',
+        password: 'sam123'
     },
     {
-        name: 'Pickle',
+        username: 'Pickle',
         age: 23,
-        email: 'pickle@email.com'
+        email: 'pickle@email.com',
+        password: 'pickle123'
     },
     {
-        name: 'Pam',
+        username: 'Pam',
         age: 33,
-        email: 'pam@email.com'
+        email: 'pam@email.com',
+        password: 'pam123'
     },
     {
-        name: 'Sid',
+        username: 'Sid',
         age: 39,
-        email: 'sid@email.com'
+        email: 'sid@email.com',
+        password: 'sid123'
     },
     {
-        name: 'Theolodious',
+        username: 'Theolodious',
         age: 579,
-        email: 'theo@email.com'
+        email: 'theo@email.com',
+        password: 'theolodious123'
     },
     {
-        name: 'Slavicous',
+        username: 'Slavicous',
         age: 274,
-        email: 'slav@email.com'
+        email: 'slav@email.com',
+        password: 'slavicous123'
     },
     {
 

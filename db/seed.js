@@ -33,9 +33,11 @@ const createTables = async () => {
         await client.query(`
         CREATE TABLE users(
             id SERIAL PRIMARY KEY,
-            name VARCHAR(255) ,
+            username VARCHAR(255) UNIQUE ,
             age INTEGER,
-			email VARCHAR(255)
+			email VARCHAR(255) UNIQUE ,
+            password VARCHAR(255)
+            
         );
         `)
 
@@ -129,7 +131,7 @@ const buildDB = async ()  => {
 
 				const ownersAndTheirPuppies = await getOwnersAndPuppies();
 				//console.log(ownersAndTheirPuppies);
-                const udatedUser = await updateUser(8,{name: 'Petra', age: 24, email: 'petra@email.com'} )
+                const udatedUser = await updateUser(8,{username: 'Petra', age: 24, email: 'petra@email.com', password:'petra123'} )
                 console.log(udatedUser)
                 const { rows }= await client.query(`
                 SELECT * FROM users;
